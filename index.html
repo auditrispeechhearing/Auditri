@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auditri — Hearing & Speech Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue-50:#f2f8ff;
+      --blue-100:#d9ecff;
+      --blue-500:#0b63d6;
+      --blue-600:#0956b8;
+      --muted:#6b7280;
+      --card-bg: #ffffff;
+      --glass: rgba(255,255,255,0.6);
+      --max-width:1200px;
+      --radius:14px;
+      --gap:24px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color:#0f1724;
+      background:linear-gradient(180deg,var(--blue-50),white 40%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* Container */
+    .container{max-width:var(--max-width);margin:0 auto;padding:40px 24px}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.7);backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(11,99,214,0.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;max-width:var(--max-width);margin:0 auto;padding:14px 24px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--blue-500),var(--blue-600));color:white;font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px}
+    nav a:hover{color:var(--blue-600);background:transparent}
+
+    /* Hero / slider */
+    .hero{width:100%;overflow:hidden}
+    .slider{position:relative;height:62vh;min-height:360px;display:block}
+    .slides{display:flex;height:100%;transition:transform .7s ease}
+    .slide{min-width:100%;height:100%;display:grid;grid-template-columns:1fr;align-items:center;padding:40px}
+    .slide .content{max-width:680px;background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));padding:28px;border-radius:14px;box-shadow:0 12px 30px rgba(12,38,80,0.06)}
+    .slide h2{margin:0 0 12px;font-size:32px;color:var(--blue-600)}
+    .slide p{margin:0 0 18px;color:var(--muted)}
+    .cta{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid var(--blue-500);background:transparent;color:var(--blue-600);font-weight:700;text-decoration:none}
+
+    /* slider controls */
+    .slider .arrow{position:absolute;top:50%;transform:translateY(-50%);background:var(--card-bg);width:44px;height:44px;border-radius:10px;display:grid;place-items:center;box-shadow:0 8px 24px rgba(12,38,80,0.08);cursor:pointer}
+    .slider .prev{left:18px}
+    .slider .next{right:18px}
+    .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;display:flex;gap:8px}
+    .dot{width:10px;height:10px;border-radius:10px;background:rgba(11,99,214,0.18)}
+    .dot.active{background:var(--blue-600)}
+
+    /* Services */
+    section.services{padding:64px 24px;background:linear-gradient(180deg, rgba(11,99,214,0.02), transparent)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:var(--max-width);margin:0 auto}
+    .service-card{background:var(--card-bg);padding:22px;border-radius:12px;box-shadow:0 12px 30px rgba(12,38,80,0.04);min-height:160px}
+    .service-card h3{margin:0 0 6px}
+    .service-card p{margin:0;color:var(--muted)}
+
+    /* About */
+    section.about{padding:64px 24px}
+    .about-inner{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;max-width:var(--max-width);margin:0 auto}
+    .about p{color:var(--muted)}
+    .stats{display:flex;gap:14px;margin-top:18px}
+    .stat{background:linear-gradient(90deg,var(--blue-50),white);padding:12px;border-radius:10px;min-width:120px;text-align:center}
+    .stat strong{display:block;font-size:20px;color:var(--blue-600)}
+
+    /* Contact */
+    section.contact{padding:64px 24px;background:linear-gradient(180deg, white, var(--blue-50));}
+    .contact-inner{max-width:var(--max-width);margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:26px}
+    .contact-card{background:var(--card-bg);padding:20px;border-radius:12px;box-shadow:0 12px 30px rgba(12,38,80,0.04)}
+    .contact-card h3{margin-top:0}
+    .map{border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(12,38,80,0.06)}
+
+    footer{padding:22px 24px;text-align:center;color:var(--muted);font-size:14px}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .about-inner,.contact-inner{grid-template-columns:1fr}
+      .slide .content{max-width:520px}
+    }
+    @media (max-width:640px){
+      .nav{padding:12px}
+      .brand h1{font-size:16px}
+      .slides{height:52vh}
+      .services-grid{grid-template-columns:1fr}
+      .slide h2{font-size:22px}
+      .slide p{font-size:14px}
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <img src="logo.png" alt="Auditri Logo" class="logo" style="width:58px;height:58px;border-radius:10px;object-fit:contain;background:white;padding:4px;">
+        <div>
+          <h1>Auditri</h1>
+          <div style="font-size:12px;color:var(--muted)">Hearing & Speech Clinic</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="slider" aria-label="Hero slider">
+        <div class="slides" id="slides">
+          <!-- <div class="slide" style="background:url('banner1.jpg') center/cover">
+         <div class="container">
+              <div class="content">
+                <h2>Compassionate Care for Every Ear</h2>
+                <p>Auditri provides professional hearing and speech therapy services using evidence-based approaches in a calm, supportive environment.</p>
+                <a class="cta" href="#contact">Get in touch</a>
+              </div>
+            </div> 
+          </div> -->
+
+          <div class="slide" style="background:url('banner2.jpg') center/cover">
+            <!-- <div class="container">
+              <div class="content">
+                <h2>Personalised Hearing Solutions</h2>
+                <p>From hearing assessments to hearing aid guidance and speech therapy — tailored plans that fit your lifestyle and goals.</p>
+                <a class="cta" href="#services">Our services</a>
+              </div>
+            </div> -->
+          </div>
+
+        </div>
+
+        <button class="arrow prev" id="prev" aria-label="Previous slide">&lt;</button>
+        <button class="arrow next" id="next" aria-label="Next slide">&gt;</button>
+        <div class="dots" id="dots"></div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services">
+      <div class="container">
+        <h2 style="text-align:center;margin-bottom:18px;color:var(--blue-600)">Our Services</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Hearing Assessment</h3>
+            <p>Comprehensive audiological evaluation for adults and children to identify the type and degree of hearing loss.</p>
+          </div>
+
+          <div class="service-card">
+            <h3>Hearing Aid Consultation</h3>
+            <p>Personalised hearing aid recommendations, fitting, and follow-up to ensure comfort and optimal benefit.</p>
+          </div>
+
+          <div class="service-card">
+            <h3>Speech & Language Therapy</h3>
+            <p>Therapy for speech, language, voice and fluency issues with evidence-based strategies for all ages.</p>
+          </div>
+
+          <div class="service-card">
+            <h3>Tinnitus Management</h3>
+            <p>Assessment and counselling for tinnitus with sound therapy and practical coping strategies.</p>
+          </div>
+
+          <div class="service-card">
+            <h3>Pediatric Audiology</h3>
+            <p>Child-friendly assessments, early intervention and parental guidance to support development.</p>
+          </div>
+
+          <div class="service-card">
+            <h3>Communication Training</h3>
+            <p>Auditory training and communication strategies to improve listening skills and social participation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about">
+      <div class="about-inner">
+        <div>
+          <h2 style="color:var(--blue-600);margin-top:0">About Auditri</h2>
+          <p>Auditri is a specialised hearing and speech clinic committed to improving communication and quality of life. We combine clinical expertise with compassionate care to create personalised therapy plans. Our clinic offers modern assessment tools, sound-treated rooms, and experienced therapists.</p>
+
+          <!-- <div class="stats">
+            <div class="stat"><strong>10+</strong><span style="font-size:13px;color:var(--muted)">Years experience</span></div>
+            <div class="stat"><strong>2k+</strong><span style="font-size:13px;color:var(--muted)">Happy clients</span></div>
+            <div class="stat"><strong>Child & Adult</strong><span style="font-size:13px;color:var(--muted)">Services</span></div>
+          </div> -->
+        </div>
+
+        <aside style="display:grid;gap:10px">
+          <div style="background:linear-gradient(180deg, rgba(11,99,214,0.06), white);padding:18px;border-radius:12px;box-shadow:0 8px 20px rgba(12,38,80,0.04)">
+            <h3 style="margin:0 0 8px">Why choose us</h3>
+            <ul style="margin:0;padding-left:18px;color:var(--muted)">
+              <li>Experienced therapists</li>
+              <li>Evidence-based care</li>
+              <li>Child-friendly environment</li>
+              <li>Modern diagnostic tools</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <div class="contact-inner">
+        <div class="contact-card">
+          <h3>Contact & Address</h3>
+          <p style="color:var(--muted)">Reach out for a consultation or questions. We are happy to help.</p>
+          <div style="margin-top:16px;display:flex;gap:12px;flex-direction:column">
+            <div><strong>Address:</strong><div style="color:var(--muted)">1Amina Complex, Near SBI Bank, Mathamangalam, Kannur, Kerala - 670306</div></div>
+            <div><strong>Phone:</strong><div style="color:var(--muted)">+91 8590413161</div></div>
+            <div><strong>Email:</strong><div style="color:var(--muted)"></div></div>
+          </div>
+
+          <div style="margin-top:18px">
+            <h4 style="margin:0 0 8px">Send a message</h4>
+            <form onsubmit="event.preventDefault();alert('Message sent — replace with your backend integration');" style="display:grid;gap:8px">
+              <input required placeholder="Your name" style="padding:10px;border-radius:8px;border:1px solid #e6e9ef">
+              <input required type="email" placeholder="Email" style="padding:10px;border-radius:8px;border:1px solid #e6e9ef">
+              <textarea required placeholder="Message" rows="4" style="padding:10px;border-radius:8px;border:1px solid #e6e9ef"></textarea>
+              <button type="submit" style="padding:10px;border-radius:10px;border:none;background:var(--blue-600);color:white;font-weight:700;cursor:pointer">Send message</button>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <div class="map">
+            <!-- Replace the src with your Google Maps iframe link for exact location -->
+            <iframe width="100%" height="420" style="border:0" loading="lazy" allowfullscreen
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.670737445995!2d75.29491007499077!3d12.134666288109061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba46993986c8b65%3A0x981dd2e6588068db!2sAuditri%20Speech%20and%20Hearing%20Center!5e0!3m2!1sen!2sin!4v1763484762189!5m2!1sen!2sin"
+              title="clinic location"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Auditri — Hearing & Speech Clinic · All rights reserved
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Slider logic
+    (function(){
+      const slidesEl = document.getElementById('slides');
+      const slides = slidesEl.children;
+      const dotsWrap = document.getElementById('dots');
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      let idx = 0;
+      const total = slides.length;
+
+      function renderDots(){
+        dotsWrap.innerHTML='';
+        for(let i=0;i<total;i++){
+          const d = document.createElement('div');d.className='dot'+(i===idx?' active':'');d.addEventListener('click',()=>{go(i)});
+          dotsWrap.appendChild(d);
+        }
+      }
+
+      function go(i){
+        idx = (i+total)%total;
+        slidesEl.style.transform = `translateX(-${idx*100}%)`;
+        renderDots();
+      }
+
+      prev.addEventListener('click',()=>go(idx-1));
+      next.addEventListener('click',()=>go(idx+1));
+
+      // autoplay
+      let timer = setInterval(()=>go(idx+1),4500);
+      [prev,next,dotsWrap].forEach(el=>el.addEventListener('mouseenter',()=>clearInterval(timer)));
+      [prev,next,dotsWrap].forEach(el=>el.addEventListener('mouseleave',()=>timer = setInterval(()=>go(idx+1),4500)));
+
+      // init
+      go(0);
+    })();
+  </script>
+</body>
+</html>
